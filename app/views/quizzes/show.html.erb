@@ -1,0 +1,21 @@
+<h1>第<%= @q_num %>問  <%= @q.content %></h1>
+
+<%= form_with(url: quizzes_path, method: :post) do |f| %>
+  <%= f.label :選択肢 %><br>
+  <%= f.radio_button :choice, 1 %> <%= @q.option1 %> <br>
+  <%= f.radio_button :choice, 2 %> <%= @q.option2 %> <br>
+  <%= f.radio_button :choice, 3 %> <%= @q.option3 %> <br>
+
+  <%= f.hidden_field :q_id, :value => @q.id %>
+  <%= f.hidden_field :q_num, :value => @q_num %>
+  <% if @q_num != '1' %>
+    <%= f.hidden_field :user_id, :value => @user_id %>
+  <% end %>
+
+  <% if @q_num.to_i < 10 %>
+    <%= f.submit '次の問題へ' %>
+  <% else %>
+    <%= f.submit '結果を表示する' %>
+  <% end %>
+
+<% end %>

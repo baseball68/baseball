@@ -1,0 +1,8 @@
+<h1>結果表示ページ</h1>
+
+<% (1..10).each do |i| %>
+  <% q_attr = "q#{i}_" %>
+  <h3>第<%= i %>問 <%= @user_ans[q_attr + 'isCorrect'] ? 'o' : 'x' %> あなたの回答: <%= @user_ans[q_attr + 'yourans'] %> 正解: <%= Question.find(@user_ans[q_attr + 'id'].to_i).correct %> </h3>
+<% end %>
+
+<%= link_to  "もう1度問クイズに挑戦", quiz_path(1) %>
