@@ -23,7 +23,7 @@ class QuizzesController < ApplicationController
     user_ans[q_attr + 'isCorrect'] = (Question.find(params[:q_id].to_i).correct == params[:choice].to_i)
     user_ans.save
 
-    redirect_to q_num == 10 ? result_quizzes_path(user_id: user_ans.id) : quiz_path(q_num + 1, user_id: user_ans.id)
+    redirect_to q_num == 10 ? result_path(user_id: user_ans.id) : quiz_path(q_num + 1, user_id: user_ans.id)
   end
 
   def result
