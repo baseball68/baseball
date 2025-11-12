@@ -33,4 +33,5 @@ production:
   <<: *default
   adapter: postgresql
   encording: unicode
+  url: <%= ENV["DATABASE_URL"] %>
   # database: path/to/persistent/storage/production.sqlite3
