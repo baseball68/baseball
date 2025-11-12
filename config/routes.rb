@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   # クイズ機能
  resources :quizzes
     get '/result' => 'quizzes#result'
-    root "top#index"
+    root "tops#index"
 end
