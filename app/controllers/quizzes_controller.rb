@@ -1,9 +1,15 @@
 class QuizzesController < ApplicationController
   def show
-    q_sum = Question.count
-    rand_num = SecureRandom.random_number(q_sum) + 1
-    @q = Question.find(rand_num)
-    @q_num = rand_num
+   @q_num = params[:id] #現在何問目かを表すもの
+        if @q_num != '1' #1問目以外のとき
+        @user_id = params[:user_id] #user_idを受け取る
+        end
+        valid_ids = Question.pluck(:id)
+        #有効のidを全てとりだす
+        rand_id = valid_ids.sample
+        #ランダムに一つ選ぶ
+        @q = Question.find(rand_id)
+        #先ほど作った rand_id を使って、ランダムに1問取り出し、インスタンス変数 @q に入れる
   end
 
   def create
@@ -17,7 +23,7 @@ class QuizzesController < ApplicationController
     user_ans[q_attr + 'isCorrect'] = (Question.find(params[:q_id].to_i).correct == params[:choice].to_i)
     user_ans.save
 
-    redirect_to q_num == 10 ? result_path(user_id: user_ans.id) : quiz_path(q_num + 1, user_id: user_ans.id)
+    redirect_to q_num == 10 ? result_quizzes_path(user_id: user_ans.id) : quiz_path(q_num + 1, user_id: user_ans.id)
   end
 
   def result
